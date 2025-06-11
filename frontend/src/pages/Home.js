@@ -1,4 +1,6 @@
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useWorkoutsContext } from "../hooks/useWorkoutsContext";
 import WorkoutDetails from "../components/WorkoutDetails";
 import WorkoutForm from "../components/WorkoutForm";
 
@@ -8,7 +10,9 @@ const Home = () => {
 
   //React "first" shows the UI--HOME (even if it's just an empty page), then "useEffect" runs after that
 
-  const [workouts, setWorkouts] = useState(null); //State
+  // const [workouts, setWorkouts] = useState(null); //State
+  const { workouts, dispatch } = useWorkoutsContext();
+  //STATE=local state, USEwc=global state
 
   useEffect(() => {
     const fetchWorkouts = async () => {
@@ -19,7 +23,8 @@ const Home = () => {
       const json = await response.json(); //JSON res (Ab json ke andar poora data array store hota hai)
 
       if (response.ok) {
-        setWorkouts(json); //iske through access kar paenge data me se
+        // setWorkouts(json); //iske through access kar paenge data me se
+        dispatch({ type: "SET_WORKOUTS", payload: json });
       }
     };
     fetchWorkouts();

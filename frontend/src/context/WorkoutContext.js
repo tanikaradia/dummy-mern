@@ -13,7 +13,7 @@ export const WorkoutsReducer = (state, action) => {
       };
     case "CREATE_WORKOUTS":
       return {
-        workouts: [action.payload, ...state.workouts],
+        workouts: [action.payload, ...state.workouts], //new data,...prev/pehle jo workouts the, unhe EXPAND karke bahar array me lana(unpack)
       };
     default:
       return state;
@@ -29,7 +29,7 @@ export const WorkoutsContextProvider = ({ children }) => {
   });
   return (
     //state==CURRENT data, dispatch==funn to ACTION
-    <WorkoutsContext.Provider value={{ state, dispatch }}>
+    <WorkoutsContext.Provider value={{ ...state, dispatch }}>
       {children}
     </WorkoutsContext.Provider> //App comp //⬆️createContext()
   );
