@@ -28,7 +28,7 @@ const Home = () => {
       }
     };
     fetchWorkouts();
-  }, []);
+  }, [dispatch]); //that means, whenever the dispatch funn changes-->rerun useeffect
   //component is rendered -> FIRE funn
   // [] to only fire Once
 
