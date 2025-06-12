@@ -6,6 +6,7 @@ const WorkoutForm = () => {
   const [title, setTitle] = useState("");
   const [reps, setReps] = useState("");
   const [error, setError] = useState(null);
+  const [emptyFields, setemptyField] = useState([]);
 
   const handleSubmit = async (e) => {
     e.preventDefault(); //without this You type info and hit submit--Page refreshes 😩--Your React state is lost
@@ -23,11 +24,13 @@ const WorkoutForm = () => {
 
     if (!response.ok) {
       setError(json.error);
+      setemptyField(json.emptyFields);
     }
     if (response.ok) {
       setTitle("");
       setReps("");
       setError(null);
+      setemptyField([]);
       console.log("new workout added", json);
       dispatch({ type: "CREATE_WORKOUT", payload: json });
     }
@@ -42,6 +45,7 @@ const WorkoutForm = () => {
         onChange={(e) => setTitle(e.target.value)}
         //e=event--passed to funn,target=triggered--ele causing event,value=current value typed
         value={title}
+        className={emptyFields.includes("title") ? "error" : ""}
       />
 
       <label>Reps:</label>
